@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  outline: none;
+}
+body {
+  overflow: hidden;
+  outline: none;
+}
+
+.link {
+  background: rgb(255, 255, 255);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+.link:hover {
+  background: #7848f4;
+  color: white;
+}
+
+.link.active {
+  background: #7848f4;
+  color: white;
+  transition: 0.1s ease;
+}
+.link.active .navLogo {
+  transition: 0.1s ease;
+  color: white;
+}
+
+.navLogo {
+  color: #7848f4;
+  font-size: 25px;
+}
+.link:hover .navLogo {
+  color: #fdfcff;
+}
+.buttonRegister {
+  width: 400px;
+  border-radius: 5px;
+  height: 58px;
+  background: #7848f4;
+  color: white;
+  font-size: 19px;
+}
+
+.buttonRegister:hover {
+  background: #683adc;
+  color: white;
+}
+.heroSectionBackgroundDashboard {
+  width: 100%;
+  height: 450px;
+  background: url("./../../public/photo/collageback.jpg");
+  background-size: cover;
+  background-position: 50% 90%;
+  border-radius: 5px;
+  margin-bottom: 29px;
+}
+
+.attendeePage {
+  width: 100%;
+  height: 450px;
+  background: url("./../../public/photo/collageback.jpg");
+  background-size: cover;
+  background-position: 50% 90%;
+  border-radius: 5px;
+  margin-bottom: 29px;
+}
+
+.volunteerBg {
+  width: 100%;
+  height: 450px;
+  background: url("./../../public/photo/volunteer.jpg");
+  background-size: cover;
+  background-position: 50% 50%;
+  border-radius: 5px;
+  margin-bottom: 29px;
+}
+.SponsorModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 40%;
+  transform: translate(-50%, -50%);
+  background-color: #f8f8fa;
+}
+
+.inp {
+  display: flex;
+  flex-direction: column;
+  grid-row-gap: 15px;
+}
+
+.inp input {
+  width: 100%;
+  padding: 10px;
+  height: 60px;
+  border-radius: 5px;
+}
+::placeholder {
+  padding: 10px;
+}
+
+.inp input[type="file"]::file-selector-button {
+  border: 2px solid #ffffff;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+  background-color: #fefeff;
+  transition: 1s;
+}
+
+.rightLogin {
+  background: url("./../../public/photo/background\ signin.jpg");
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.leftLogin1 {
+  background: url("./../../public/photo/background\ signin.jpg");
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.student {
+  width: 100%;
+  height: 450px;
+  background: url("https://concept3d.com/wp-content/uploads/2023/08/Student-with-more-access-to-academic-resources-due-to-efforts-to-boost-student-retention-and-persistence.jpg");
+  background-size: cover;
+  background-position: 50% 20%;
+  border-radius: 5px;
+  margin-bottom: 29px;
+}
+
+.reviewingPage {
+  width: 100%;
+  height: 450px;
+  background: url("../../public//photo/collage-customer-experience-concept.jpg");
+  background-size: cover;
+  background-position: 50% 10%;
+  border-radius: 5px;
+  margin-bottom: 29px;
+}
+
+.Sponsor {
+  width: 100%;
+  height: 450px;
+  background: url("https://content.cdntwrk.com/files/aHViPTUyNTE5JmNtZD1pdGVtZWRpdG9yaW1hZ2UmZmlsZW5hbWU9aXRlbWVkaXRvcmltYWdlXzYyOGJiMjI4NzM1NWIuanBnJnZlcnNpb249MDAwMCZzaWc9MTM2ODEyYTk3MGY5NWFlNDg5MjA1NWRhYTEzZTVmY2Q%253D");
+  background-size: cover;
+  background-position: 50% 63%;
+  border-radius: 5px;
+  margin-bottom: 29px;
+}
+@media only screen and (max-width: 1238px) {
+  li span {
+    display: none;
+    transition: 0.1s ease;
+  }
+
+  .leftM {
+    width: 80px;
+    padding: 1px;
+    transition: 0.1s ease;
+  }
+  p {
+    font-size: 17px;
+  }
+  h2,
+  h3,
+  h1 {
+    font-size: 20px;
+  }
+  .leftSideEvent {
+    display: none;
+  }
+  .box {
+    width: 100%;
+    margin: 0 5px;
+  }
+  .SponsorModal {
+    width: 89%;
+  }
+  .signup {
+    flex: none;
+    height: 100vh;
+    overflow-y: scroll;
+    flex-wrap: wrap-reverse;
+  }
+  .LogoSponsor {
+    width: 100px;
+    margin-top: -10px;
+  }
+  .rightLogin1 {
+    flex: none;
+    width: 100%;
+  }
+  .rightLg {
+    width: 100%;
+  }
+  .rightLg button {
+    width: 100%;
+  }
+  .leftLogin1 {
+    flex: none;
+    padding: 22px;
+    width: 100%;
+  }
+  .leftLogin {
+    flex: none;
+    padding: 22px;
+    width: 100%;
+  }
+  .rightLogin {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 690px) {
+  .ft {
+    height: auto;
+  }
+}
