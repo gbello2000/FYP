@@ -28,7 +28,7 @@ function Student() {
           <div className="flex w-[85%] mt-[50px] justify-center">
             <button
               onClick={() => setShowModal4(true)}
-              className="w-[160px] rounded-[5px] mt-[20px]  text-[20px]  h-[58px] bg-[#7848f4] text-[white] "
+              className="w-[160px] rounded-[35px] mt-[20px]  text-[20px]  h-[58px] bg-[#7848f4] text-[white] "
             >
               Apply
             </button>
