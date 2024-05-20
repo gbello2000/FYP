@@ -16,6 +16,7 @@ class Project extends Model
         'project_name',
         'preferred_date_of_presenting',
         'file',
+        'status',
     ];
 }
 

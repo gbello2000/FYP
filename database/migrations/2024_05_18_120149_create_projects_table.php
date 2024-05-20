@@ -14,6 +14,7 @@ class CreateProjectsTable extends Migration
             $table->string('project_name');
             $table->date('preferred_date_of_presenting');
             $table->string('file')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

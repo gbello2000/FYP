@@ -33,24 +33,25 @@ class ProjectController extends Controller
     }
 
     public function index()
-{
-    return Project::all();
-}
+    {
+        return Project::all();
+    }
 
-public function approve($id)
-{
-    $project = Project::findOrFail($id);
-    $project->status = 'approved'; // Assuming you have a status column
-    $project->save();
+    public function approve($id)
+    {
+        $project = Project::findOrFail($id);
+        $project->status = 'approved';
+        $project->save();
 
-    return response()->json(['message' => 'Project approved successfully']);
-}
+        return response()->json(['message' => 'Project approved successfully']);
+    }
 
-public function destroy($id)
-{
-    $project = Project::findOrFail($id);
-    $project->delete();
+    public function destroy($id)
+    {
+        $project = Project::findOrFail($id);
+        $project->delete();
 
-    return response()->json(['message' => 'Project deleted successfully']);
-}
+        return response()->json(['message' => 'Project deleted successfully']);
+    }
+
 }

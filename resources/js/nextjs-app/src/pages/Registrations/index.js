@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Footer from '../components/Footer/Footer';
+import Footer from "../components/Footer/Footer";
 import { FaRegCheckCircle } from 'react-icons/fa';
 
 export default function Registrations() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    // Fetch all projects when the component mounts
     fetchProjects();
   }, []);
 

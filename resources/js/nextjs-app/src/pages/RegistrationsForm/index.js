@@ -17,6 +17,7 @@ export default function RegistrationForm() {
     formData.append('student_name', studentName);
     formData.append('project_name', projectName);
     formData.append('preferred_date_of_presenting', preferredDate);
+    formData.append('status', 'pending');
     if (file) {
       formData.append('file', file);
     }
@@ -60,7 +61,7 @@ export default function RegistrationForm() {
               <input
                 type="text"
                 placeholder="Project Name"
-                name="ProjectName"
+                name="ProjectTitle"
                 value={projectName}
                 onChange={(e) => setProjectName(e.target.value)}
               />
@@ -85,15 +86,6 @@ export default function RegistrationForm() {
                 name="images"
                 onChange={(e) => setFile(e.target.files[0])}
               />
-            </div>
-            <div className="inp">
-              <label htmlFor="Status">Status</label>
-              <div className="w-[100%] flex justify-between h-[60px] rounded-[5px] pl-[10px] items-center bg-[white]">
-                <span className="text-[#9d9c9c]">Approved</span>
-                <span className="text-[#9d9c9c]">
-                  <FaRegCheckCircle className="text-[20px] mr-[18px]" />
-                </span>
-              </div>
             </div>
             <button
               type="submit"
