@@ -89,13 +89,13 @@ function LeftNav() {
                 <FaUsers className="navLogo" />
                 <span>Attendance</span>
               </NavLink>
-              <NavLink href="/GuestSpeakers" router={router}>
+              {/* <NavLink href="/GuestSpeakers" router={router}>
                 <FaUsers className="navLogo" />
                 <span>Guest Speakers</span>
-              </NavLink>
+              </NavLink> */}
               <NavLink href="/Sponsor" router={router}>
                 <FaUsers className="navLogo" />
-                <span>Guest Speakers</span>
+                <span>Sponsors</span>
               </NavLink>
               <NavLink href="/Calendar" router={router}>
             <IoCalendarOutline className="navLogo" />
