@@ -42,7 +42,8 @@ Route::post('/volunteers', [VolunteerController::class, 'store']);
 Route::get('/volunteers', [VolunteerController::class, 'index']);
 Route::delete('/volunteers/{id}', [VolunteerController::class, 'destroy']);
 Route::get('/sponsors', [SponsorController::class, 'index']);
-
+Route::get('/projects/approved', [ProjectController::class, 'getApprovedProjects']);
+Route::patch('/projects/{id}/time', [ProjectController::class, 'updateProjectTime']);
 //Route::post('/auth/signup', [AuthController::class, 'signup'])->middleware('cors');
 //Route::post('/auth/signin', [AuthController::class, 'signin'])->middleware('cors');
 //Route::get('/session-data', [SessionController::class, 'getSessionData']);

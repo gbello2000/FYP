@@ -44,4 +44,20 @@ class ProjectController extends Controller
 
         return response()->json(['message' => 'Project deleted successfully']);
     }
+
+    public function getApprovedProjects()
+    {
+        $projects = Project::where('status', 'approved')->get();
+        return response()->json($projects);
+    }
+
+    public function updateProjectTime(Request $request, $id)
+    {
+        $project = Project::findOrFail($id);
+        $project->start_time = $request->start_time;
+        $project->end_time = $request->end_time;
+        $project->save();
+
+        return response()->json(['message' => 'Project time updated successfully']);
+    }
 }
