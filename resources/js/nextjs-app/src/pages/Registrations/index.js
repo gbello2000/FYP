@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Footer from "../components/Footer/Footer";
-import { FaRegCheckCircle } from 'react-icons/fa';
+import { FaRegCheckCircle, FaRegTimesCircle } from 'react-icons/fa';
 
 export default function Registrations() {
   const [projects, setProjects] = useState([]);
+  const [filter, setFilter] = useState('all');
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     fetchProjects();
-  }, []);
+  }, [filter]);
 
   const fetchProjects = async () => {
     try {
       const response = await axios.get('http://localhost:8000/api/projects');
-      setProjects(response.data);
+      const filteredProjects = response.data.filter(project => {
+        if (filter === 'all') return true;
+        return project.status === filter;
+      });
+      setProjects(filteredProjects);
+      setCount(filteredProjects.length);
     } catch (error) {
       console.error('Error fetching projects:', error);
     }
@@ -28,12 +35,12 @@ export default function Registrations() {
     }
   };
 
-  const deleteProject = async (id) => {
+  const declineProject = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/projects/${id}`);
-      fetchProjects(); // Refresh the list after deletion
+      await axios.patch(`http://localhost:8000/api/projects/${id}/decline`);
+      fetchProjects(); // Refresh the list after declining
     } catch (error) {
-      console.error('Error deleting project:', error);
+      console.error('Error declining project:', error);
     }
   };
 
@@ -41,7 +48,25 @@ export default function Registrations() {
     <div>
       <div className="mb-[90px] lg:p-[38px] md:p-[20px] sm:p-[20px]">
         <div className="lg:w-[50%] sm:w-[80%] md:w-[80%] m-auto ">
-          <h2 className="text-center text-[30px]">Registrations</h2>
+          <h2 className="text-center text-[30px]">Review Projects</h2>
+          
+          <div className="flex justify-between mb-[20px]">
+            <div>
+              <label className="mr-[10px]">Filter: </label>
+              <select
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                className="border rounded px-[10px] py-[5px]"
+              >
+                <option value="all">All</option>
+                <option value="approved">Approved</option>
+                <option value="declined">Declined</option>
+              </select>
+            </div>
+            <div>
+              <span className="font-bold">{count}</span> projects found
+            </div>
+          </div>
 
           {projects.map((project) => (
             <div key={project.id} className="p-[30px] flex flex-col gap-[10px] border-b">
@@ -57,29 +82,21 @@ export default function Registrations() {
                 <label>Date of presenting</label>
                 <p>{project.preferred_date_of_presenting}</p>
               </div>
-              <div className="inp">
-                <label>Status</label>
-                <div className="w-[100%] flex justify-between h-[60px] rounded-[5px] pl-[10px] items-center bg-[white]">
-                  <span className="text-[#9d9c9c]">{project.status}</span>
-                  <span className="text-[#9d9c9c]">
-                    <FaRegCheckCircle className="text-[20px] mr-[18px]" />
-                  </span>
+              <label>Status</label>
+              <div
+                className={`inp ${project.status === 'approved' ? 'bg-green-500 text-white' : project.status === 'declined' ? 'bg-red-500 text-white' : 'bg-white text-black'} font-bold px-[10px] py-[5px] rounded`}
+              >
+                <div className="w-[100%] flex justify-between h-[60px] rounded-[5px] pl-[10px] items-center">
+                  <span>{project.status}</span>
+                  {project.status === 'approved' && (
+                    <FaRegCheckCircle className="text-[20px] ml-[10px]" />
+                  )}
+                  {project.status === 'declined' && (
+                    <FaRegTimesCircle className="text-[20px] ml-[10px]" />
+                  )}
                 </div>
               </div>
-              <div className="flex gap-[20px] mt-[10px]">
-                <button
-                  onClick={() => approveProject(project.id)}
-                  className="w-[140px] rounded-[5px] text-[white] h-[40px] bg-[#28a745]"
-                >
-                  Approve
-                </button>
-                <button
-                  onClick={() => deleteProject(project.id)}
-                  className="w-[140px] rounded-[5px] text-[white] h-[40px] bg-[#dc3545]"
-                >
-                  Decline
-                </button>
-              </div>
+              
             </div>
           ))}
 

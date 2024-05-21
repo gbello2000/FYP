@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/projects', [ProjectController::class, 'store']);
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::patch('/projects/{id}/approve', [ProjectController::class, 'approve']);
+Route::patch('/projects/{id}/decline', [ProjectController::class, 'decline']);
 Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
 
 //Route::post('/auth/signup', [AuthController::class, 'signup'])->middleware('cors');
