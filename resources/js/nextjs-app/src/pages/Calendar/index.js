@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import moment from 'moment';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+
+const localizer = momentLocalizer(moment);
 
 function PresentationsPage() {
   const [projects, setProjects] = useState([]);
-  const [selectedProject, setSelectedProject] = useState(null);
   const [selectedTime, setSelectedTime] = useState('');
-  const [calendarEvents, setCalendarEvents] = useState([]);
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
     fetchApprovedProjects();
@@ -15,6 +19,12 @@ function PresentationsPage() {
     try {
       const response = await axios.get('http://localhost:8000/api/projects/approved');
       setProjects(response.data);
+      const calendarEvents = response.data.map(project => ({
+        title: project.project_name,
+        start: new Date(`${project.preferred_date_of_presenting}T${project.start_time}`),
+        end: new Date(`${project.preferred_date_of_presenting}T${project.end_time}`),
+      }));
+      setEvents(calendarEvents);
     } catch (error) {
       console.error('Error fetching approved projects:', error);
     }
@@ -38,15 +48,6 @@ function PresentationsPage() {
       console.error('Error updating project time:', error);
     }
   };
-
-  useEffect(() => {
-    const events = projects.map(project => ({
-      title: project.project_name,
-      start: `${project.preferred_date_of_presenting}T${project.start_time}`,
-      end: `${project.preferred_date_of_presenting}T${project.end_time}`,
-    }));
-    setCalendarEvents(events);
-  }, [projects]);
 
   return (
     <div className="flex">
@@ -76,15 +77,13 @@ function PresentationsPage() {
       </div>
       <div className="w-2/3 p-4">
         <h2 className="text-2xl font-bold mb-4">Calendar View</h2>
-        <div>
-          {calendarEvents.map((event, index) => (
-            <div key={index} className="mb-4 p-4 border rounded">
-              <p><strong>Project Name:</strong> {event.title}</p>
-              <p><strong>Start Time:</strong> {event.start}</p>
-              <p><strong>End Time:</strong> {event.end}</p>
-            </div>
-          ))}
-        </div>
+        <Calendar
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          style={{ height: 600 }}
+        />
       </div>
     </div>
   );
