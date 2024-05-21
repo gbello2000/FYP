@@ -93,7 +93,6 @@ function SignIn() {
                     onChange={(e) => setPassword(e.target.value)}
                     name="password"
                   />
-                  <Link href="/">Forgot your password?</Link>
                 </div>
                 <div className="text-center mt-[20px]">
                   <button

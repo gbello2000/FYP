@@ -6,6 +6,9 @@ use Fruitcake\Cors\HandleCors;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\AttendeeController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +31,11 @@ Route::get('/projects', [ProjectController::class, 'index']);
 Route::patch('/projects/{id}/approve', [ProjectController::class, 'approve']);
 Route::patch('/projects/{id}/decline', [ProjectController::class, 'decline']);
 Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
+Route::get('/attendees', [AttendeeController::class, 'index']);
+Route::post('/attendees', [AttendeeController::class, 'store']);
+Route::delete('/attendees/{id}', [AttendeeController::class, 'destroy']);
+Route::get('/reviewers', [UserController::class, 'reviewers']);
+Route::delete('/reviewers/{id}', [UserController::class, 'destroy']);
 
 //Route::post('/auth/signup', [AuthController::class, 'signup'])->middleware('cors');
 //Route::post('/auth/signin', [AuthController::class, 'signin'])->middleware('cors');

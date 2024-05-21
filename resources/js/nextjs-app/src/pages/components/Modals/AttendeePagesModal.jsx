@@ -1,50 +1,60 @@
-import React from "react";
-import { IoMdClose } from "react-icons/io";
+import React, { useState } from "react";
+import axios from "axios";
 
-export default function AttendeePagesModal({ isVisible1, onClose1 }) {
-  if (!isVisible1) {
-    return null;
-  }
+function AttendeePagesModal({ isVisible1, onClose1 }) {
+  const [name, setName] = useState("");
+  const [dateOfAttendance, setDateOfAttendance] = useState("");
+  const [status, setStatus] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8000/api/attendees", { name, date_of_attendance: dateOfAttendance });
+      if (response.status === 201) {
+        setStatus("Registration successful!");
+        setName("");
+        setDateOfAttendance("");
+      }
+    } catch (error) {
+      setStatus("Error registering attendee.");
+      console.error("Error:", error);
+    }
+  };
+
+  if (!isVisible1) return null;
+
   return (
-    <div className="top-0 left-0 w-[100%] h-[100vh] blur-0 bg-[#1d1c1c32] fixed backdrop-blur-sm z-[800]">
-      <div className="SponsorModal p-[20px] rounded-[5px] ">
-        <div className="flex justify-end">
-          <h2 onClick={() => onClose1()}>
-            <IoMdClose className="cursor-pointer" />
-          </h2>
-        </div>
-        {/* Student Spring Symposium  */}
-        <h2 className="text-center text-[30px]">Apply to attend the SSS</h2>
-        <form className="p-[30px] flex flex-col gap-[10px]">
-          <div className="inp">
-            <label id="studentName">Student Name</label>
-
-            <input type="text" placeholder="Name" name="studentName" />
-          </div>
-
-          <div className="inp">
-            <label id="date">Date of ateending</label>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+      <div className="bg-white p-8 rounded-[15px]">
+        <button onClick={onClose1} className="mb-4 bg-red-500 text-white p-2 rounded-[10px]">Close</button>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div className="flex flex-col bg-[#f1f1f1] p-4 rounded-[10px]">
+            <label className="mb-2">Name</label>
             <input
-              type="date"
-              placeholder="text"
-              name="date"
-              className="text-[#aaaaaa]"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="p-2 rounded-[10px] border border-gray-400"
             />
           </div>
-
-          <div className="flex gap-[20px]">
-            <button
-              type="submit"
-              className="w-[140px] rounded-[5px] text-[white] h-[40px] mt-[20px] bg-[#7848f4]"
-            >
-              Accept
-            </button>
-            <button className="w-[140px] rounded-[5px] text-[white] h-[40px] mt-[20px] bg-[#f44848]">
-              Decline
-            </button>
+          <div className="flex flex-col bg-[#f1f1f1] p-4 rounded-[10px]">
+            <label className="mb-2">Date of Attendance</label>
+            <input
+              type="date"
+              value={dateOfAttendance}
+              onChange={(e) => setDateOfAttendance(e.target.value)}
+              required
+              className="p-2 rounded-[10px] border border-gray-400"
+            />
           </div>
+          <button type="submit" className="bg-blue-500 text-white p-2 rounded-[10px]">Register</button>
         </form>
+        {status && <p className="mt-4">{status}</p>}
       </div>
     </div>
+  
   );
 }
+
+export default AttendeePagesModal;
