@@ -125,7 +125,7 @@ function LeftNav() {
             <span>Home Page</span>
           </NavLink>
 
-          <NavLink href="/Calendar" router={router}>
+          <NavLink href="/CalendarA" router={router}>
             <IoCalendarOutline className="navLogo" />
             <span>Event Schedule </span>
           </NavLink>
@@ -141,7 +141,7 @@ function LeftNav() {
             
           </NavLink>
 
-          <NavLink href="/Calendar" router={router}>
+          <NavLink href="/CalendarA" router={router}>
             <IoCalendarOutline className="navLogo" />
             <span>Event Schedule </span>
           </NavLink>
@@ -156,7 +156,7 @@ function LeftNav() {
             <span>Attendee Home Page</span>
           </NavLink>
           
-          <NavLink href="/Calendar" router={router}>
+          <NavLink href="/CalendarA" router={router}>
             <IoCalendarOutline className="navLogo" />
             <span>Event Schedule </span>
           </NavLink>

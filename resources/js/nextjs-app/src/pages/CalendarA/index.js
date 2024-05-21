@@ -51,30 +51,6 @@ function PresentationsPage() {
 
   return (
     <div className="flex">
-      <div className="w-1/3 p-4">
-        <h2 className="text-2xl font-bold mb-4">Approved Presentations</h2>
-        {projects.map((project) => (
-          <div key={project.id} className="mb-4 p-4 border rounded">
-            <p><strong>Student Name:</strong> {project.student_name}</p>
-            <p><strong>Project Name:</strong> {project.project_name}</p>
-            <p><strong>Preferred Date:</strong> {project.preferred_date_of_presenting}</p>
-            <div className="flex items-center">
-              <input
-                type="time"
-                className="mr-2 p-2 border rounded"
-                value={selectedTime}
-                onChange={(e) => setSelectedTime(e.target.value)}
-              />
-              <button
-                onClick={() => handleTimeSelection(project.id)}
-                className="bg-blue-500 text-white p-2 rounded"
-              >
-                Set Time
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
       <div className="w-2/3 p-4">
         <h2 className="text-2xl font-bold mb-4">Calendar View</h2>
         <Calendar
@@ -82,7 +58,7 @@ function PresentationsPage() {
           events={events}
           startAccessor="start"
           endAccessor="end"
-          style={{ height: 600 }}
+          style={{ height: 1200, width: 2200 }}
           views={['month', 'week', 'day']}
           defaultView="month"
         />
