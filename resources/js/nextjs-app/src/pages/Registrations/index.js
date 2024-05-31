@@ -48,7 +48,7 @@ export default function Registrations() {
     <div>
       <div className="mb-[90px] lg:p-[38px] md:p-[20px] sm:p-[20px]">
         <div className="lg:w-[50%] sm:w-[80%] md:w-[80%] m-auto ">
-          <h2 className="text-center text-[30px]">Review Projects</h2>
+          <h2 className="text-center text-[30px] font-bold mb-[20px]">Registrations</h2>
           
           <div className="flex justify-between mb-[20px]">
             <div>
@@ -69,24 +69,24 @@ export default function Registrations() {
           </div>
 
           {projects.map((project) => (
-            <div key={project.id} className="p-[30px] flex flex-col gap-[10px] border-b">
-              <div className="inp">
-                <label>Student Name</label>
-                <p>{project.student_name}</p>
+            <div key={project.id} className="p-[30px] flex flex-col gap-[10px] border-b bg-[#f9f9f9] rounded-[10px] mb-[20px] shadow-lg">
+              <div className="inp mb-[10px]">
+                <label className="block text-[#555] font-semibold mb-[5px]">Student Name</label>
+                <p className="p-[10px] bg-[white] rounded-[5px] shadow-inner">{project.student_name}</p>
               </div>
-              <div className="inp">
-                <label>Project Title</label>
-                <p>{project.project_name}</p>
+              <div className="inp mb-[10px]">
+                <label className="block text-[#555] font-semibold mb-[5px]">Project Title</label>
+                <p className="p-[10px] bg-[white] rounded-[5px] shadow-inner">{project.project_name}</p>
               </div>
-              <div className="inp">
-                <label>Date of presenting</label>
-                <p>{project.preferred_date_of_presenting}</p>
+              <div className="inp mb-[10px]">
+                <label className="block text-[#555] font-semibold mb-[5px]">Date of Presenting</label>
+                <p className="p-[10px] bg-[white] rounded-[5px] shadow-inner">{project.preferred_date_of_presenting}</p>
               </div>
-              <label>Status</label>
-              <div
-                className={`inp ${project.status === 'approved' ? 'bg-green-500 text-white' : project.status === 'declined' ? 'bg-red-500 text-white' : 'bg-white text-black'} font-bold px-[10px] py-[5px] rounded`}
-              >
-                <div className="w-[100%] flex justify-between h-[60px] rounded-[5px] pl-[10px] items-center">
+              <div className="inp mb-[10px]">
+                <label className="block text-[#555] font-semibold mb-[5px]">Status</label>
+                <div
+                  className={`w-[100%] flex justify-between h-[60px] rounded-[5px] pl-[10px] items-center ${project.status === 'approved' ? 'bg-[#28a745] text-[white]' : project.status === 'declined' ? 'bg-[#dc3545] text-[white]' : 'bg-[white] text-[black]'} shadow-inner`}
+                >
                   <span>{project.status}</span>
                   {project.status === 'approved' && (
                     <FaRegCheckCircle className="text-[20px] ml-[10px]" />
@@ -99,7 +99,6 @@ export default function Registrations() {
               
             </div>
           ))}
-
         </div>
       </div>
       <Footer />

@@ -1,23 +1,19 @@
 import React, { useState } from "react";
 import Link from "next/link";
-
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [csrfToken, setCsrfToken] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    //setCsrfToken(token);
+    setErrorMessage(""); // Clear previous error message
+
     try {
       const csrfToken = sessionStorage.getItem('csrfToken');
-
-   
-
-   
       const response = await fetch("http://localhost:8000/web/auth/signin", {
         method: "POST",
         headers: {
@@ -30,7 +26,6 @@ function SignIn() {
   
       const data = await response.json();
       if (response.ok) {
-        
         switch (data.role) {
           case 'admin':
               window.location.href = '/Registrations';
@@ -44,59 +39,75 @@ function SignIn() {
           case 'volunteer':
               window.location.href = '/volunteer';
               break;
-              case 'presenter':
+          case 'presenter':
               window.location.href = '/Student';
               break;
           default:
-          
               window.location.href = '/'; 
               break;
+        }
+      } else {
+        setErrorMessage(data.message || 'Invalid email or password');
       }
-    } else {
-        throw new Error(data.message);
-    }
     } catch (error) {
       console.error("Error:", error);
+      setErrorMessage("An error occurred. Please try again.");
     }
   };
-  
 
   return (
-    <div className="w-[100%]  bg-[#ffffff] absolute top-0 left-0">
-      <div className="flex h-[100vh] justify-center items-center ">
-        <div className="flex w-[100%] h-[100vh] m-auto  ">
-          <div className="leftLogin flex-[1.5] bg-[#f8f8fa]  ">
-            <div className="p-[40px] ">
-              <h2 className="text-center text-[30px] mt-[50px] mb-[50px]">
+    <div className="w-full bg-white absolute top-0 left-0">
+      <div className="flex h-screen justify-center items-center">
+        <div className="flex w-full h-full m-auto">
+          <div className="leftLogin flex-[1.5] bg-gray-100 p-10">
+            <div className="max-w-md m-auto">
+              <h2 className="text-center text-3xl font-bold mb-10">
                 Sign in to the system
               </h2>
+              {errorMessage && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-5" role="alert">
+                  <span className="block sm:inline">{errorMessage}</span>
+                </div>
+              )}
               <form
-                className="rightLg p-[30px] flex flex-col gap-[10px] w-[60%] m-auto "
+                className="flex flex-col gap-4"
                 onSubmit={handleSubmit}
               >
-                <div className="inp">
-                  <label id="yourEmail">YOUR EMAIL</label>
+                <div className="flex flex-col">
+                  <label htmlFor="yourEmail" className="mb-2 font-semibold">YOUR EMAIL</label>
                   <input
-                    type="text"
+                    type="email"
                     placeholder="Enter your Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     name="yourEmail"
+                    className="p-3 border rounded"
+                    required
                   />
                 </div>
-                <div className="inp">
-                  <label id="password">PASSWORD</label>
-                  <input
-                    type="password"
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    name="password"
-                  />
+                <div className="flex flex-col">
+                  <label htmlFor="password" className="mb-2 font-semibold">PASSWORD</label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Enter your password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      name="password"
+                      className="p-3 border rounded w-full"
+                      required
+                    />
+                    <div
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </div>
+                  </div>
                 </div>
-                <div className="text-center mt-[20px]">
+                <div className="text-center mt-5">
                   <button
-                    className="w-[280px] text-[19px]  m-auto text-center rounded-[5px] text-[white] h-[50px] mt-[20px] bg-[#7848f4]"
+                    className="w-full text-xl py-3 rounded bg-purple-600 text-white hover:bg-purple-700 transition duration-300"
                     type="submit"
                   >
                     Sign in
@@ -105,7 +116,7 @@ function SignIn() {
               </form>
             </div>
           </div>
-          <div className="rightLogin flex-[1.1]  bg-[#7848f4]"></div>
+          <div className="rightLogin flex-[1.1] bg-purple-600 hidden md:block"></div>
         </div>
       </div>
     </div>

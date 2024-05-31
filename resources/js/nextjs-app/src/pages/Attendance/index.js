@@ -39,15 +39,15 @@ export default function Attendance() {
       <div className="mb-[90px] p-[38px]">
         <div className="lg:w-[50%] sm:w-[80%] md:w-[80%] m-auto">
           {/* Filter */}
-          <div className="flex justify-between items-center p-[10px]">
-            <div>{filteredAttendees.length}</div>
+          <div className="flex justify-between items-center p-[10px] mb-[20px]">
+            <div className="text-[18px] font-bold">{filteredAttendees.length} Attendees</div>
             <div className="flex gap-[10px] items-center">
-              <h3>Filter</h3>
+              <h3 className="text-[18px]">Filter</h3>
               <select
                 id="filter"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
-                className="bg-[#ffffff] p-[10px]"
+                className="border rounded px-[10px] py-[5px] bg-white"
               >
                 {dates.map((date, index) => (
                   <option key={index} value={date}>
@@ -57,23 +57,27 @@ export default function Attendance() {
               </select>
             </div>
           </div>
-          {/* Student Spring Symposium */}
-          <h2 className="text-center text-[30px]">Attendance</h2>
-          {filteredAttendees.map((attendee) => (
-            <div
-              key={attendee.id}
-              className="p-[10px] border-b flex justify-between items-center hover:bg-gray-200"
-            >
-              <span className="text-[18px]">{attendee.name}</span>
-              <span className="text-[18px]">{attendee.date_of_attendance}</span>
-              <button
-                onClick={() => deleteAttendee(attendee.id)}
-                className="bg-red-500 text-white p-2 rounded-[10px]"
+          {/* Title */}
+          <h2 className="text-center text-[30px] font-bold mb-[20px]">Attendance</h2>
+          
+          {/* Attendees List */}
+          <div className="space-y-[10px]">
+            {filteredAttendees.map((attendee) => (
+              <div
+                key={attendee.id}
+                className="p-[20px] border-b flex justify-between items-center bg-white rounded-[10px] shadow hover:bg-gray-100"
               >
-                Remove
-              </button>
-            </div>
-          ))}
+                <span className="text-[18px] font-semibold">{attendee.name}</span>
+                <span className="text-[18px] text-gray-600">{attendee.date_of_attendance}</span>
+                <button
+                  onClick={() => deleteAttendee(attendee.id)}
+                  className="bg-red-500 text-white px-[15px] py-[8px] rounded-[5px] shadow"
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       <Footer />
